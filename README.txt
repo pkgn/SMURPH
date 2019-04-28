@@ -32,23 +32,32 @@
                     pawel@olsonet.com
 
   ----------------------------------------------------------------------------
- |  Note: The following book about SMURPH/SIDE is available:                  |
- |        Pawel Gburzynski                                                    |
- |        Protocol Design for Local and Metropolitan Area Networks            |
- |        Prentice Hall, 1996                                                 |
- |        ISBN 0-13-554270-7                                                  |
+ |  The following books about SMURPH/SIDE are available:                      |
  |                                                                            |
- |        The book may be outdated (SMURPH/SIDE has evolved in  the  meantime |
- |        and  there  are  many  new features not described in the book (like |
- |        wireless channels, for example). Nonetheless, the book is still the |
- |        most friendly introduction to the package (and the idea behind it). |
- |        Use the enclosed reference manual as the authoritative  (albeit not |
- |        quite as friendly) source of wisdom.                                |
+ |       Pawel Gburzynski                                                     |
+ |       Modeling Communication Networks                                      |
+ |       Implementation in the SMURPH System                                  |
+ |       LNNS, Springer, 2019, ISBN: 978-3-030-15391-5,                       |
+ |       DOI: 10.1007/978-3-030-15391-5                                       |
  |                                                                            |
- |        I am (March 2018) working on a new document that:                   |
- |           - will be shorter than the book                                  |
- |           - will cover the wireless features of SMURPH                     |
- |           - will be more friendly than the manual                          |
+ |       This book contains the complete  (and hopefully friendly)  manual of |
+ |       SMURPH,  supported  with  elaborate examples  (including  models  of |
+ |       wireless channels), and an introduction to event-driven simulation.  |
+ |                                                                            |
+ |       Pawel Gburzynski                                                     |
+ |       Protocol Design for Local and Metropolitan Area Networks             |
+ |       Prentice Hall, 1996                                                  |
+ |       ISBN 0-13-554270-7                                                   |
+ |                                                                            |
+ |       This book is somewhat aged (SMURPH/SIDE has evolved in the  meantime |
+ |       and  there  are  many  new features not described in the book  (like |
+ |       wireless channels [see the new book for that]).  The  book discusses |
+ |       many  examples  of  wired  local-area  networks  focusing  on access |
+ |       protocols.                                                           |
+ |                                                                            |
+ |       The package comes with a (probably not as friendly) reference manual |
+ |       to be used as the up-to-date,  authoritative reference  in  case  of |
+ |       doubts.                                                              |
  |                                                                            |
   ----------------------------------------------------------------------------
 
@@ -63,40 +72,28 @@
   ----------------------------------------------------------------------------
 
   ----------------------------------------------------------------------------
- |  Copyright (C) 1994-2018 P. Gburzynski                                     |
+ | Read LICENSE.txt in this directory for the terms of use.                   |
   ----------------------------------------------------------------------------
 
        ----------------------------------------------------------------
       >  SMURPH (a System for Modeling Unslotted Real-time PHenomena)  <
       >  is  a  package for simulating communication protocols at the  <
-      >  medium access control (MAC) level. SMURPH can be viewed as a  <
-      >  combination of a protocol specification  language  based  on  <
-      >  C++   and  an  event-driven,  discrete-time  simulator  that  <
-      >  provides  a   virtual   (but   realistic)   and   controlled  <
-      >  environment  for  protocol execution. SMURPH can be used for  <
-      >  designing (prototyping)  low-level  communication  protocols  <
-      >  and   investigating  their  quantitative  (performance)  and  <
-      >  qualitative (correctness) properties.                         <
+      >  level of (virtual) implementation. SMURPH can be viewed as a  <
+      >  combination of a protocol specification language,  based  on  <
+      >  C++, with an event-driven, discrete-time simulator providing  <
+      >  a virtual, programmable, and parameterizable environment for  <
+      >  protocol  execution.   SMURPH  can  be  used  for  designing  <
+      >  (prototyping)    low-level   communication   protocols   and  <
+      >  investigating their quantitative and qualitative properties,  <
+      >  i.e., performance and correctness.                            <
       >                                                                <
-      >  SMURPH descends from LANSF --  an  earlier  version  of  the  <
+      >  SMURPH  descends from  LANSF,  an  earlier  version  of  the  <
       >  package  (Software  Practice  and  Experience,  vol.  21(1),  <
       >  January 1991, pp. 51-76) which was based on plain C.          <
       >                                                                <
-      >  A SMURPH program consisting of  the  protocol  source  code,  <
-      >  network description, and traffic specification is translated  <
-      >  into  a program in C++. The code in C++ is then compiled and  <
-      >  linked with the SMURPH  library.  This  way  a  stand-alone,  <
-      >  executable  module  is  built  which  can  be  viewed  as  a  <
-      >  simulator for the system  described  by  the  user  program.  <
-      >                                                                <
-      >  When you get a copy of SMURPH or LANSF, please send  a  note  <
-      >  to  'pawel@cs.ualberta.ca'.  I  would  like  to  know who is  <
-      >  using the packages and (if it is  not  a  secret)  for  what  <
-      >  purpose.                                                      <
-      >                                                                <
       >  The  SMURPH  project  was  supported in part by NSERC grants  <
       >  OGP9110 and OGP9183, and by a grant from  Lockheed  Missiles  <
-      >  and Space Company, Inc.                                       <
+      >  and Space Company, Inc. (now Lockheed Martin).                <
        ----------------------------------------------------------------
 
        ----------------------------------------------------------------
@@ -104,14 +101,13 @@
       > The present version of SMURPH has been renamed  "SIDE",  which <
       > stands for Sensors In a Distributed Environment. SIDE includes <
       > SMURPH as its subset and is fully compatible with SMURPH 1.8x, <
-      > except  for  checkpointing,  which has been disabled  (perhaps <
-      > temporarily) in SIDE.                                          <
+      > except  for  checkpointing,  which has been disabled in SIDE.  <
        ----------------------------------------------------------------
        ----------------------------------------------------------------
 
 
- Summary of changes:
- ===================
+ Summary of changes until September 2006:
+ ========================================
 
  11/12/90: Special preprocessor added (SMPP) to convert smurph constructs into
            C++ constructs. Previously this was handled by the compiler
