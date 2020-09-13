@@ -774,6 +774,9 @@ static char *sxml_handle_includes (char *IF, int *MS, char **err) {
 	e = (s = IF) + *MS;
 	*err = NULL;
 
+	// The really stupid thing is that these naive heuristics do not
+	// account for comments
+
 	while (1) {
 		// Find a tag
 		while (s < e && *s != '<')
@@ -811,7 +814,7 @@ Error:
 		for (t = v; t < e && *t !='>'; t++);
 		if (t == e) {
 Broken:
-			*err = "include tag format error";
+			*err = "include tag format error, no closing '>'";
 			goto Error;
 		}
 		// Last point for locating href
@@ -850,7 +853,7 @@ Unmatched:
 			v++;
 
 		if (v == e || *v == '\"') {
-			*err = "file name missing for include href";
+			*err = "file name missing in include href";
 			goto Error;
 		}
 
@@ -866,7 +869,7 @@ Unmatched:
 #ifdef	ZZ_XINCPAT
 			if (*v == '/') {
 NoFile:
-				*err = "cannot open include file";
+				*err = form ("cannot open include file: %s", v);
 				goto Error;
 			}
 
@@ -892,7 +895,7 @@ NoFile:
 				}
 			} while (1);
 #else
-			*err = "cannot open include file";
+			*err = form ("cannot open include file: %s", v);
 			goto Error;
 #endif
 		}
@@ -921,7 +924,8 @@ Mem:
 			if (nr < 0) {
 				close (sk);
 				free (w);
-				*err = "cannot read from include file";
+				*err = form ("cannot read from include file: "
+					"%s", v);
 				goto Error;
 			}
 
